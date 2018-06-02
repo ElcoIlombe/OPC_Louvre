@@ -1,3 +1,21 @@
 core_homepage:
     path:     /
     defaults: { _controller: CoreBundle:Tickets:index }
+
+core_resume:
+    path:    /resume
+    defaults:
+        _controller: CoreBundle:Tickets:resume
+core_paiement:
+    path:    /paiement
+    defaults:
+        _controller: CoreBundle:Tickets:paiement
+core_error:
+    path:    /error
+    defaults:
+        _controller: CoreBundle:Tickets:error
+core_thank_you:
+    path:    /thank-you
+    defaults:
+        _controller: CoreBundle:Tickets:thank
+
