@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Première page symfony pour le p4</title>
-</head>
-<body>
+{% extends 'CoreBundle::layout.html.twig' %}
+
+
+
+  {% block core_body %}
     <h1>Accueil billeterie</h1>
-</body>
-</html>
+    <div class="well">
+      {{ form(form) }}
+    </div>
+  {% endblock %}
+
+
+

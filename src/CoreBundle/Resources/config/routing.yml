@@ -17,5 +17,5 @@ core_error:
 core_thank_you:
     path:    /thank-you
     defaults:
-        _controller: CoreBundle:Tickets:thank
+        _controller: CoreBundle:Tickets:thanks
 
