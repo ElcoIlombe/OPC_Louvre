@@ -94,4 +94,3 @@ class Tickets
         return $this->tarifs;
     }
 }
-

@@ -3,14 +3,16 @@
 namespace CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
- * Reservation
+ * Visiteurs
  *
- * @ORM\Table(name="reservation")
- * @ORM\Entity(repositoryClass="CoreBundle\Repository\ReservationRepository")
+ * @ORM\Table(name="visiteurs")
+ * @ORM\Entity(repositoryClass="CoreBundle\Repository\VisiteursRepository")
  */
-class Reservation
+class Visiteurs
 {
     /**
      * @var int
@@ -20,25 +22,11 @@ class Reservation
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="Type", type="string", length=255)
-     */
-    private $type;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="Tarifs", type="integer")
-     */
-    private $tarifs;
-
     /**
      * @var string
      *
      * @ORM\Column(name="Nom", type="string", length=255)
+     * @Assert\Length(min=2)
      */
     private $nom;
 
@@ -46,9 +34,16 @@ class Reservation
      * @var string
      *
      * @ORM\Column(name="Prenom", type="string", length=255)
+     * @Assert\Length(min=2)
      */
     private $prenom;
-
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="reduit", type="string", length=255)
+     * @Assert\Length(min=2)
+     */
+    private $reduit;
 
     /**
      * Get id
@@ -155,5 +150,52 @@ class Reservation
     {
         return $this->prenom;
     }
-}
 
+    /**
+     * Set dateReservation
+     *
+     * @param \DateTime $dateReservation
+     *
+     * @return Reservation
+     */
+    public function setDateNaissance($dateReservation)
+    {
+        $this->dateReservation = $dateReservation;
+
+        return $this;
+    }
+
+    /**
+     * Get dateReservation
+     *
+     * @return \DateTime
+     */
+    public function getDateNaissance()
+    {
+        return $this->dateReservation;
+    }
+
+    /**
+     * Set reduit
+     *
+     * @param \bollean $reduit
+     *
+     * @return Reservation
+     */
+    public function setReduit($reduit)
+    {
+        $this->reduit = $reduit;
+
+        return $this;
+    }
+
+    /**
+     * Get reduit
+     *
+     * @return \bollean
+     */
+    public function getReduit()
+    {
+        return $this->reduit;
+    }
+}

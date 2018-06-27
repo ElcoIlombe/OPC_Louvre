@@ -3,10 +3,135 @@
 
 
   {% block core_body %}
-    <h1>Accueil billeterie</h1>
-    <div class="well">
-      {{ form(form) }}
-    </div>
+
+
+
+    <div class="container">
+      <div class="row">
+        <h1>Accueil billeterie</h1>
+          {# On Commence notre formulaire #}
+          {{ form_start(form, { "attr" : {"class" : "form-inline"}}) }}
+          <fieldset class="form-group col-md-12">
+          <legend> Informations générales </legend>
+          </fieldset>
+          {{ form_errors(form) }}
+          {# On crée manuellement nos champs #}
+          <div class="form-group  col-md-3">
+            {{ form_label(form.email, 'Votre adresse email')}}
+            {{ form_widget(form.email, { "attr" : { "placeholder" : "johndoe@louvre.fr", "class" : "form-control"}}) }}
+            {{ form_errors(form)}}
+          </div>
+
+          <div class="form-group col-md-3">
+            {{ form_label(form.type, 'Type de billets')}}
+            {{ form_widget(form.type, { "attr" : { "class" : "form-control" }}) }}
+            {{ form_errors(form)}}
+          </div>
+
+          <div class="form-group col-md-3">
+            {{ form_label(form.type, 'Date de reservation ')}}
+            {{ form_widget(form.dateReservation, { "attr" : { "placeholder" : "29/06/2018", "class" : "form-control js-datepicker" }}) }}
+            {{ form_errors(form)}}
+          </div>
+
+          <div class="form-group col-md-3">
+            {{ form_label(form.type, 'Pays de résidance ')}}
+            {{ form_widget(form.pays, { "attr" : { "class" : "form-control", "class" : "form-control" }}) }}
+            {{ form_errors(form)}}
+          </div>
+
+          <div class="form-group alert alert-success col-md-12">
+            <fieldset class="form-group col-md-12">
+          <legend> Informations des visiteurs </legend>
+          </fieldset>
+            {{ form_widget(form.visiteurs)}}
+            {{ form_errors(form)}}
+          </div>
+
+            {# On gènère les champs manquants #}
+            {{ form_rest(form)}}
+          <br>
+          <a href="#" id="add_Visiteurs" class="btn btn-primary">Ajouter une Visiteur</a>
+
+          <button type="sumbit" class="btn btn-success">Envoyer</button>
+          {{ form_end(form)}}
+        </div> {# Endcol #}
+      </div> {# endrow #}
+    </div> {# endcontainer #}
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+{# Voici le script en question : #}
+<script type="text/javascript">
+  $(document).ready(function() {
+    // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+    var $container = $('div#corebundle_commandes_visiteurs');
+
+    // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+    var index = $container.find(':input').length;
+
+    // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
+    $('#add_Visiteurs').click(function(e) {
+      addVisiteurs($container);
+
+      e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+      return false;
+    });
+
+    // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
+    if (index == 0) {
+      addVisiteurs($container);
+    } else {
+      // S'il existe déjà des Visiteurs, on ajoute un lien de suppression pour chacune d'entre elles
+      $container.children('div').each(function() {
+        addDeleteLink($(this));
+      });
+    }
+
+    // La fonction qui ajoute un formulaire VisiteursType
+    function addVisiteurs($container) {
+      // Dans le contenu de l'attribut « data-prototype », on remplace :
+      // - le texte "__name__label__" qu'il contient par le label du champ
+      // - le texte "__name__" qu'il contient par le numéro du champ
+      var template = $container.attr('data-prototype')
+        .replace(/__name__label__/g, 'Visiteur n°' + (index+1))
+        .replace(/__name__/g,        index)
+      ;
+
+      // On crée un objet jquery qui contient ce template
+      var $prototype = $(template);
+
+      // On ajoute au prototype un lien pour pouvoir supprimer la Visiteur
+      addDeleteLink($prototype);
+
+      // On ajoute le prototype modifié à la fin de la balise <div>
+      $container.append($prototype);
+
+      // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+      index++;
+    }
+
+    // La fonction qui ajoute un lien de suppression d'une Visiteur
+    function addDeleteLink($prototype) {
+      if (index > 0 ) {
+        // Création du lien
+      var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+
+      // Ajout du lien
+      $prototype.append($deleteLink);
+
+      // Ajout du listener sur le clic du lien pour effectivement supprimer la Visiteur
+      $deleteLink.click(function(e) {
+        $prototype.remove();
+
+        e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+        return false;
+      });
+      }
+    }
+  });
+</script>
   {% endblock %}
 
 
