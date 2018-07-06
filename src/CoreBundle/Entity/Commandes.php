@@ -46,19 +46,22 @@ class Commandes
      */
     private $type;
 
-    /*
-    *@ORM\OneToMany(targetEntity="oc_louvre\CoreBundle\Entity\Visiteurs", cascade={"persist"})
-    * @Assert\Valid()
-    * @Assert\NotBlank()
-     */
-    private $visiteurs;
+
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="Date_reservation", type="datetime")
-     * * @Assert\DateTime()
+     * @Assert\DateTime()
      */
     private $dateReservation;
+
+
+    /*
+    *@ORM\OneToMany(targetEntity="oc_louvre\CoreBundle\Entity\Visiteurs", cascade= {"persist"})
+    * @Assert\Valid()
+    * @Assert\Count(min=1, minMessage="Trop court" )
+    */
+    public $visiteurs;
 
     public function __construct(){
         $this->dateNaissance = new \Datetime();

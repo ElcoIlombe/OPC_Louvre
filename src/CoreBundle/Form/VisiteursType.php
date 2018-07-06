@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -33,17 +34,19 @@ class VisiteursType extends AbstractType
             'label' => false,
             'attr' => [ "class" => "form-control", "placeholder" => 'Prenom']
         ))
-        ->add('reduit', ChoiceType::class, array(
-            'choices' => array(
-                "Pas de réduction" => "false",
-                "Militaire" => "Militaire",
-                " Etudiant" => "Etudiant",
-                " Employé du musée" => "Employé",
-                "Ministère de la culture" => " Ministère",
-            ),
-            "label" => false,
+        ->add('reduit', CheckboxType::class, array(
+            "label" => 'Je dispose d\'une reduction',
+            "required" => false,
             'attr' => ["class" => "form-control"]
-
+        ))
+        ->add('dateNaissance', DateType::class, array(
+            'widget' => 'single_text',
+            'html5' => false,
+            "label" => false,
+            'attr' => ["class" => "naissance form-control", "placeholder" => "Date de naissance"]
+        ))
+        ->add('tarif', HiddenType::class, array(
+                "data" => 0
         ));
     }
     /**

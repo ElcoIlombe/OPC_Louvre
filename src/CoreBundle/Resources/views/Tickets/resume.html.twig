@@ -6,5 +6,34 @@
 </head>
 <body>
     <h1>Récapitulatif de votre commande</h1>
+    {% set visiteurs = app.session.get('visiteurs') %}
+    {% set nbVisiteurs = 1 %}
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nom </th>
+        <th scope="col">Prenom </th>
+        <th scope="col">Reduction </th>
+        <th scope="col">Date de naissance</th>
+        <th scope="col">Tarifs</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for visiteur in visiteurs %}
+        <tr>
+          <th scope="row">{{ nbVisiteurs }}</th>
+          <td>{{ visiteur.nom }}</td>
+          <td>{{ visiteur.prenom }}</td>
+          <td>{{ visiteur.reduit }}</td>
+          <td>{{ visiteur.dateNaissance|date("d/m/Y") }}</td>
+          <td>{{ visiteur.tarif }}</td>
+        </tr>
+        {% set nbVisiteurs = nbVisiteurs + 1 %}
+      {% endfor %}
+    </tbody>
+    {{ dump() }}
+</table>
 </body>
 </html>

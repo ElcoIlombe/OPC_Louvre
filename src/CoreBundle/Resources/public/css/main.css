@@ -1,3 +1,60 @@
-h1 {
-  color: red!important;
+/*Général*/
+
+body {
+  background: url(https://res.cloudinary.com/elcoilombe/image/upload/v1530105105/OC%20Images/nike-66681_1920.jpg) no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.space {
+  padding: 35px 0;
+  width: 100%;
+  background: rgba(0,0,0,0);
+}
+
+.space-mid {
+  padding: 17px 0;
+  width: 100%;
+  background: rgba(0,0,0,0);
+}
+.space-mid-mid {
+  padding: 9px 0;
+  width: 100%;
+  background: rgba(0,0,0,0);
+}
+/* HOMEPAGE*/
+/* Infos générales*/
+
+#corebundle_commandes_pays {
+  width: 90%;
+}
+
+/*Formulaire de réservation*/
+
+#corebundle_commandes_visiteurs,
+#corebundle_commandes_visiteurs div,
+#corebundle_commandes_visiteurs div > div,
+#corebundle_commandes_visiteurs div > div input,
+#corebundle_commandes_visiteurs div > div select  {
+width: 98%;
+}
+
+#corebundle_commandes_visiteurs div > div {
+  margin: 10px;
+}
+
+.billeterie{
+  background: rgba(200,45,0,0.5);
+  padding: 0 25px;
+  color: white;
+}
+.visiteurs{
+  background: rgba(255,255,255,0.8);
+  color: black;
+}
+#corebundle_commandes_visiteurs div > label.required {
+  display: inline;
+  padding: 0 20px;
+  text-align: left;
+  font-size: bold!important;
 }

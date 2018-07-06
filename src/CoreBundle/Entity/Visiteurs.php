@@ -38,13 +38,41 @@ class Visiteurs
      */
     private $prenom;
     /**
-     * @var string
+     * @var boolean
      *
-     * @ORM\Column(name="reduit", type="string", length=255)
-     * @Assert\Length(min=2)
+     * @ORM\Column(name="reduit", type="boolean")
      */
     private $reduit;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="Date_naissance", type="date")
+     * @Assert\Date()
+     */
+    private $dateNaissance;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="Date_reservation", type="date")
+     * @Assert\Date()
+     */
+    private $dateReservation;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tarif", type="integer")
+     *
+     */
+    private $tarif;
+
+
+    public function __construct()
+    {
+        $this->dateReservation = new \Datetime();
+    }
     /**
      * Get id
      *
@@ -60,7 +88,7 @@ class Visiteurs
      *
      * @param string $type
      *
-     * @return Reservation
+     * @return Visiteurs
      */
     public function setType($type)
     {
@@ -80,35 +108,11 @@ class Visiteurs
     }
 
     /**
-     * Set tarifs
-     *
-     * @param integer $tarifs
-     *
-     * @return Reservation
-     */
-    public function setTarifs($tarifs)
-    {
-        $this->tarifs = $tarifs;
-
-        return $this;
-    }
-
-    /**
-     * Get tarifs
-     *
-     * @return int
-     */
-    public function getTarifs()
-    {
-        return $this->tarifs;
-    }
-
-    /**
      * Set nom
      *
      * @param string $nom
      *
-     * @return Reservation
+     * @return Visiteurs
      */
     public function setNom($nom)
     {
@@ -132,7 +136,7 @@ class Visiteurs
      *
      * @param string $prenom
      *
-     * @return Reservation
+     * @return Visiteurs
      */
     public function setPrenom($prenom)
     {
@@ -152,27 +156,27 @@ class Visiteurs
     }
 
     /**
-     * Set dateReservation
+     * Set dateNaissance
      *
-     * @param \DateTime $dateReservation
+     * @param \DateTime $dateNaissance
      *
-     * @return Reservation
+     * @return Visiteurs
      */
-    public function setDateNaissance($dateReservation)
+    public function setDateNaissance($dateNaissance)
     {
-        $this->dateReservation = $dateReservation;
+        $this->dateNaissance = $dateNaissance;
 
         return $this;
     }
 
     /**
-     * Get dateReservation
+     * Get dateNaissance
      *
      * @return \DateTime
      */
     public function getDateNaissance()
     {
-        return $this->dateReservation;
+        return $this->dateNaissance;
     }
 
     /**
@@ -180,7 +184,7 @@ class Visiteurs
      *
      * @param \bollean $reduit
      *
-     * @return Reservation
+     * @return Visiteurs
      */
     public function setReduit($reduit)
     {
@@ -197,5 +201,53 @@ class Visiteurs
     public function getReduit()
     {
         return $this->reduit;
+    }
+
+    /**
+     * Set dateReservation
+     *
+     * @param \DateTime $dateReservation
+     *
+     * @return Visiteurs
+     */
+    public function setDateReservation($dateReservation)
+    {
+        $this->dateReservation = $dateReservation;
+
+        return $this;
+    }
+
+    /**
+     * Get dateReservation
+     *
+     * @return \DateTime
+     */
+    public function getDateReservation()
+    {
+        return $this->dateReservation;
+    }
+
+    /**
+     * Set tarif
+     *
+     * @param integer $tarif
+     *
+     * @return Visiteurs
+     */
+    public function setTarif($tarif)
+    {
+        $this->tarif = $tarif;
+
+        return $this;
+    }
+
+    /**
+     * Get tarif
+     *
+     * @return integer
+     */
+    public function getTarif()
+    {
+        return $this->tarif;
     }
 }
