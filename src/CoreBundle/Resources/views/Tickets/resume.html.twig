@@ -1,21 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Première page symfony pour le p4</title>
-</head>
-<body>
-    <h1>Récapitulatif de votre commande</h1>
+{% extends 'CoreBundle::layout.html.twig' %}
+
+{% block title %} Résumé de votre commande {% endblock %}
+{% set curPage = "recapitulatif" %}
+{% block core_body %}
+  <div class="container">
+    <div class="space"></div>
+    <h1 class="text-light">Récapitulatif de votre commande</h1>
     {% set visiteurs = app.session.get('visiteurs') %}
     {% set nbVisiteurs = 1 %}
+    {% set Total = 0 %}
 
-  <table class="table">
+  <table class="table recap-table text-center">
     <thead>
       <tr>
         <th scope="col">#</th>
         <th scope="col">Nom </th>
         <th scope="col">Prenom </th>
-        <th scope="col">Reduction </th>
         <th scope="col">Date de naissance</th>
         <th scope="col">Tarifs</th>
       </tr>
@@ -24,16 +24,44 @@
       {% for visiteur in visiteurs %}
         <tr>
           <th scope="row">{{ nbVisiteurs }}</th>
-          <td>{{ visiteur.nom }}</td>
-          <td>{{ visiteur.prenom }}</td>
-          <td>{{ visiteur.reduit }}</td>
-          <td>{{ visiteur.dateNaissance|date("d/m/Y") }}</td>
-          <td>{{ visiteur.tarif }}</td>
+          <td class="visiteur-nom">{{ visiteur.nom }}</td>
+          <td class="visiteur-prenom">{{ visiteur.prenom }}</td>
+          <td class="resume-dob">{{ visiteur.dateNaissance|date("d/m/Y") }}</td>
+          <td class="resume-tarif">{{ visiteur.tarif }}</td>
         </tr>
         {% set nbVisiteurs = nbVisiteurs + 1 %}
+        {% set Total = Total + visiteur.tarif %}
       {% endfor %}
     </tbody>
-    {{ dump() }}
-</table>
-</body>
-</html>
+    <tfoot class="text-light">
+        <th scope="row">
+          Totals
+        </th>
+        <td colspan="3"></td>
+        <td class="">
+          {{ Total }}
+        </td>
+    </tfoot>
+  </table>
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <a href="#" class="btn btn-success btn-lg text-right"> Procéder au paiement </a>
+    </div>
+  </div>
+  </div>
+{% endblock %}
+
+{% block javascript %}
+  <form action="your-server-side-code" method="POST">
+  <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="pk_test_I8xFIvM1YPGVTg5hkFHFo3cf"
+    data-amount="999"
+    data-name="Demo Site"
+    data-description="Example charge"
+    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+    data-locale="auto"
+    data-currency="eur">
+  </script>
+</form>
+{% endblock %}

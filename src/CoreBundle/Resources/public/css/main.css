@@ -1,6 +1,6 @@
 /*Général*/
 
-body {
+body.homepage {
   background: url(https://res.cloudinary.com/elcoilombe/image/upload/v1530105105/OC%20Images/nike-66681_1920.jpg) no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -57,4 +57,20 @@ width: 98%;
   padding: 0 20px;
   text-align: left;
   font-size: bold!important;
+}
+
+/* PAGE DE RECAPUTILATIF */
+
+.recap {
+  background: url(https://res.cloudinary.com/elcoilombe/image/upload/v1530105102/OC%20Images/evening-exhibition-france-2363.jpg) no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.recap-table {
+  background: rgba(255,255,255,0.8);
+}
+
+tfoot {
+  background: rgba(200,45,0,1);
 }

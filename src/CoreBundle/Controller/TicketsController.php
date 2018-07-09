@@ -44,40 +44,45 @@ class TicketsController extends Controller
                 // $em->flush();
 
                 // On compare la date de naissance et la date actuelle pour determiner l'âge du visiteur
-                $dob = $commandes->getVisiteurs()[0]->getdateNaissance();
-                $now = new \DateTime();
-                $difference = $now->diff( $dob, true);
-                $age = $difference->y;
+                // $dob = $commandes->getVisiteurs()[$i]->getdateNaissance();
+                // $now = new \DateTime();
+                // $difference = $now->diff( $dob, true);
+                // $age = $difference->y;
 
                  // On récupère tous les tarifs [A METTRE DANS UN SERVICE]
                 $repository = $this->getDoctrine()->getManager()->getRepository('CoreBundle:Tickets');
                 $listTarifs = $repository->findAll();
 
                 for ($i = 0; $i < count($commandes->getVisiteurs()); $i++){
+                // On compare la date de naissance et la date actuelle pour determiner l'âge du visiteur
+                $dob = $commandes->getVisiteurs()[$i]->getdateNaissance();
+                $now = new \DateTime();
+                $difference = $now->diff( $dob, true);
+                $age = $difference->y;
                     // Si la case reduction est cochée, récupérer le tarifs réduit
-                if( $commandes->getVisiteurs()[0]->getReduit()) {
+                if ( ($commandes->getVisiteurs()[$i]->getReduit() !== true) && (4 > $age ) && ($age >= 0 ) ) {
+                    $tarif = $listTarifs[4]->getTarifs();
+                }
+                else if( $commandes->getVisiteurs()[$i]->getReduit()) {
 
                     $tarif = $listTarifs[3]->getTarifs();
 
                 }
-                else if ( ($commandes->getVisiteurs()[0]->getReduit() !== true) && (12 < $age ) && ($age < 60 ) ) {
+                else if ( ($commandes->getVisiteurs()[$i]->getReduit() !== true) && (12 < $age ) && ($age < 60 ) ) {
                     $tarif = $listTarifs[0]->getTarifs();
 
                 }
-                else if (( $commandes->getVisiteurs()[0]->getReduit() !== true) && (12 > $age) ) {
+                else if (( $commandes->getVisiteurs()[$i]->getReduit() !== true) && (12 > $age) && ($age > 4)) {
                     $tarif = $listTarifs[1]->getTarifs();
                 }
-                else if (( $commandes->getVisiteurs()[0]->getReduit() !== true) && (60 < $age) ) {
+                else if (( $commandes->getVisiteurs()[$i]->getReduit() !== true) && (60 < $age) ) {
                     $tarif = $listTarifs[2]->getTarifs();
                 }
-                else if ( ($commandes->getVisiteurs()[0]->getReduit() !== true) && (4 > $age) ) {
-                    $tarif = $listTarifs[4]->getTarifs();
-                }
 
-                $commandes->getVisiteurs()[0]->setTarif($tarif);
+                $commandes->getVisiteurs()[$i]->setTarif($tarif);
 
                 }
-
+                var_dump($commandes->getVisiteurs());
                 $session->set('commandes', $commandes);
                 $session->set('visiteurs', $commandes->getVisiteurs());
                 $session->set('tarif', $commandes->getVisiteurs()[0]->getTarif());
