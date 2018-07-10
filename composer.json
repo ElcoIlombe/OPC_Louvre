@@ -23,7 +23,9 @@
         "incenteev/composer-parameter-handler": "^2.0",
         "doctrine/doctrine-fixtures-bundle": "~2.3",
         "coresphere/console-bundle": "~0.4",
-        "stripe/stripe-php": "^6.10"
+        "stripe/stripe-php": "^6.10",
+        "knplabs/knp-snappy-bundle": "^1.5",
+        "wemersonjanuario/wkhtmltopdf-windows": "0.12.2.3"
 
     },
     "require-dev": {

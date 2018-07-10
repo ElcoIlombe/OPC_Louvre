@@ -38,6 +38,9 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+        stripe_public_key: pk_test_I8xFIvM1YPGVTg5hkFHFo3cf
+        stripe_secret_key: sk_test_JBWzKNy8M4gmRc4kMUqCfew2
 
 # Doctrine Configuration
 doctrine:
@@ -68,3 +71,13 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+# app/config/config.yml
+knp_snappy:
+    pdf:
+        enabled:    true
+        binary:     "\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\""
+        options:     []
+    image:
+        enabled:    true
+        binary:     "\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltoimage.exe\""
+        options:    []

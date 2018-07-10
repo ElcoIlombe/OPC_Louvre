@@ -1,10 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Première page symfony pour le p4</title>
-</head>
-<body>
-    <h1>Merci pour votre commande ...</h1>
-</body>
-</html>
+{% extends 'CoreBundle::layout.html.twig' %}
+{% set email = app.session.get('commandes').email %}
+    {% set date = app.session.get('commandes').dateReservation %}
+    {% set journee = app.session.get('commandes').type %}
+{% block core_body %}
+  <div class="container">
+    <div class="row">
+      <div class="space"></div>
+      <div class="col-md-12 alert alert-success">
+        <h1>Merci pour votre commande</h1>
+        <p> Vos billets <b>{{ journee|lower }}</b> pour le <b>{{ date|date("d/m/Y") }}</b>  ont été envoyé à l'adresse suivant : <b>{{ email }}.</b></p>
+        <p>
+          Bonne visite du musée du Louvre.
+        </p>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

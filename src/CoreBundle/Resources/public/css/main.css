@@ -74,3 +74,9 @@ width: 98%;
 tfoot {
   background: rgba(200,45,0,1);
 }
+
+.stripe-button-el span
+{
+  background: rgba(92,184,92,1)!important;
+  border-color: rgba(92,184,92)!important;
+}

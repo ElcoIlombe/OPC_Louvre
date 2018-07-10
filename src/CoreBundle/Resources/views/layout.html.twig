@@ -12,11 +12,7 @@
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
-    {% if curPage == "recapitulatif" %}
     <body class="recap">
-    {% else %}
-    <body class="homepage">
-    {% endif %}
         {% block body %}
           {% block core_body %}{% endblock %}
         {% endblock %}

@@ -18,4 +18,8 @@ core_thank_you:
     path:    /thank-you
     defaults:
         _controller: CoreBundle:Tickets:thanks
+core_pdf_billets:
+    path:    /pdf
+    defaults:
+        _controller: CoreBundle:Tickets:thanks
 

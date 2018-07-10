@@ -1,0 +1,64 @@
+{% extends 'CoreBundle::layout.html.twig' %}
+
+{% set visiteurs = app.session.get('commandes').visiteurs %}
+{% set date = app.session.get('commandes').dateReservation %}
+{% set type = app.session.get('commandes').type %}
+{% set Total = 0 %}
+{% set nbVisiteurs = 1 %}
+
+{% block core_body %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h1> Musé du Louvre </h1>
+    </div>
+    <div class="col-md-6">
+      <img src="https://res.cloudinary.com/elcoilombe/image/upload/v1531214293/logo_louvre.png" alt="Logo du Musé du Louvre" width="100px" />
+    </div>
+    <div class="col-md-12">
+      <h3>Merci pour votre commandes</h3>
+      <p>Ce mail fait office de billets.</p>
+    </div>
+  </div>
+  <div class="space-mid"></div>
+  <div class="row">
+    <div class="col-md-12">
+      Voici la liste de visiteurs pour la {{ type }} du {{ date|date('d/m/Y')}}
+      <table class="table recap-table text-center">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nom </th>
+            <th scope="col">Prenom </th>
+            <th scope="col">Tarifs</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for visiteur in visiteurs %}
+            <tr>
+              <th scope="row">{{ nbVisiteurs }}</th>
+              <td class="visiteur-nom">{{ visiteur.nom }}</td>
+              <td class="visiteur-prenom">{{ visiteur.prenom }}</td>
+              <td class="resume-tarif">{{ visiteur.tarif }}</td>
+            </tr>
+            {% set nbVisiteurs = nbVisiteurs + 1 %}
+            {% set Total = Total + visiteur.tarif %}
+          {% endfor %}
+        </tbody>
+        <tfoot class="text-light">
+            <th scope="row">
+              Totals
+            </th>
+            <td colspan="3"></td>
+            <td class="">
+              {{ Total }}
+            </td>
+        </tfoot>
+      </table>
+    <div class="space-mid"></div>
+    <p>Merci</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

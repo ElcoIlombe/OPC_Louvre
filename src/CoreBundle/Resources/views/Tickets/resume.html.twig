@@ -45,23 +45,22 @@
   </table>
   <div class="row">
     <div class="col-md-12 text-right">
-      <a href="#" class="btn btn-success btn-lg text-right"> Procéder au paiement </a>
+      <form action="{{ path("core_thank_you") }}" method="POST">
+        <script
+          src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="{{ stripe_public_key }}"
+          data-amount="{{ Total * 100 }}"
+          data-name="Billeterie du Louvre"
+          data-description="Paiement de vos billets"
+          data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+          data-locale="auto"
+          data-currency="eur"
+          data-label="Procéder au paiement">
+        </script>
+      </form>
     </div>
   </div>
   </div>
 {% endblock %}
 
-{% block javascript %}
-  <form action="your-server-side-code" method="POST">
-  <script
-    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-    data-key="pk_test_I8xFIvM1YPGVTg5hkFHFo3cf"
-    data-amount="999"
-    data-name="Demo Site"
-    data-description="Example charge"
-    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-    data-locale="auto"
-    data-currency="eur">
-  </script>
-</form>
-{% endblock %}
+

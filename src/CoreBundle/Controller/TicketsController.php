@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Storage\PhpBridgeSessionStorage;
+use Symfony\Component\HttpFoundation\Response;
 
 
 
@@ -60,7 +61,7 @@ class TicketsController extends Controller
                 $difference = $now->diff( $dob, true);
                 $age = $difference->y;
                     // Si la case reduction est cochée, récupérer le tarifs réduit
-                if ( ($commandes->getVisiteurs()[$i]->getReduit() !== true) && (4 > $age ) && ($age >= 0 ) ) {
+                if ( (4 > $age ) && ($age >= 0 ) ) {
                     $tarif = $listTarifs[4]->getTarifs();
                 }
                 else if( $commandes->getVisiteurs()[$i]->getReduit()) {
@@ -97,25 +98,37 @@ class TicketsController extends Controller
 
     }
 
-
-
-
-
-
     public function resumeAction(Request $request)
     {
         return $this->render('CoreBundle:Tickets:resume.html.twig');
     }
-    public function paiementAction()
+
+    public function thanksAction(Request $request)
     {
-        return $this->render('CoreBundle:Tickets:paiement.html.twig');
-    }
-    public function errorAction()
-    {
-        return $this->render('CoreBundle:Tickets:paiement-error.html.twig');
-    }
-    public function thanksAction()
-    {
+        // $session = $request->getSession();
+        // $commandes = $session->get('commandes');
+        // $message = \Swift_Message::newInstance()
+        // ->setSubject('Billets visite musée du Louvre')
+        // ->setFrom('ilombe.jonathan@gmail.com')
+        // ->setTo('jonathan.ilombe@hotmail.com')
+        // ->setBody(
+        //     $this->renderView(
+        //         "CoreBundle:Emails:reservationTickets.html.twig"
+        //     ),
+        //     "text/html"
+        // );
+
+        // $this->get('mailer')->send($message);
+
+        // /// Je redirige vers la page de reception des informations et je passe en argument l'id qui me permettra de retrouver la commande et donc de l'afficher
+        // $em = $this->getDoctrine()->getManager();
+        // $em->persist($commandes);
+        // for ( $i = 0; $i < count($commandes->visiteurs); $i++)
+        // {
+        // $em->persist($commandes->visiteurs[$i]);
+        // }
+        // $em->flush();
+
         return $this->render('CoreBundle:Tickets:thanksyou.html.twig');
     }
 }
