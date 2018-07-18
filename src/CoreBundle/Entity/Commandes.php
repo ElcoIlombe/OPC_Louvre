@@ -6,7 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use CoreBunlde\Validator\Dategood;
+use CoreBunlde\Validator\ValideDate;
+use CoreBunlde\Validator\Antiflood;
+
 
 
 /**
@@ -31,6 +33,7 @@ class Commandes
      *
      * @ORM\Column(name="Email", type="string", length=255)
      * @Assert\Email()
+     * @Antiflood()
      */
     private $email;
 
@@ -55,7 +58,6 @@ class Commandes
      *
      * @ORM\Column(name="Date_reservation", type="datetime")
      * @Assert\DateTime()
-     * @Dategood()
      */
     private $dateReservation;
 

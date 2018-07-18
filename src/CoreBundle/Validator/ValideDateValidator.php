@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-class DategoodValidator extends ConstraintValidator
+class ValideDateValidator extends ConstraintValidator
 {
   private $requestStack;
   private $em;
@@ -22,10 +22,10 @@ class DategoodValidator extends ConstraintValidator
 
   public function validate($value, Constraint $constraint)
   {
-    $visitDate = $value;
+    $visiteDate = $value;
     $repository = $this->getDoctrine()->getManager()->getRepository('CoreBundle:Commandes');
     $todayCommandes = 1001; /*$repository->findBy(
-                  array('Date_reservation' => $visitDate)
+                  array('Date_reservation' => $visiteDate)
                 );*/
     if ($todayCommandes >= 1000 ) {
       $this->context->addViolation($constraint->message);
