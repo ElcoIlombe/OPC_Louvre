@@ -1,4 +1,6 @@
 services:
-#    core.example:
-#        class: CoreBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+  core_bundle.validator.validedate:
+       class: CoreBundle\Validator\DategoodValidator
+       arguments: ["@request_stack", "@doctrine.orm.entity_manager"]
+       tags:
+            - { name: validator.constraint_validator, alias: core_bundle_dategood }

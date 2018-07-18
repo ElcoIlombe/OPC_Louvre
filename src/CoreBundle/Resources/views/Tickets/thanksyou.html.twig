@@ -2,6 +2,7 @@
 {% set email = app.session.get('commandes').email %}
     {% set date = app.session.get('commandes').dateReservation %}
     {% set journee = app.session.get('commandes').type %}
+    {% set montant = app.session.get('montant') %}
 {% block core_body %}
   <div class="container">
     <div class="row">
@@ -9,8 +10,9 @@
       <div class="col-md-12 alert alert-success">
         <h1>Merci pour votre commande</h1>
         <p> Vos billets <b>{{ journee|lower }}</b> pour le <b>{{ date|date("d/m/Y") }}</b>  ont été envoyés à l'adresse suivant : <b>{{ email }}.</b></p>
+
         <p>
-          Bonne visite du musée du Louvre.
+          {{ montant }}Bonne visite du musée du Louvre.
         </p>
       </div>
     </div>

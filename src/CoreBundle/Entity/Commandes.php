@@ -3,7 +3,10 @@
 namespace CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use CoreBunlde\Validator\Dategood;
 
 
 /**
@@ -52,6 +55,7 @@ class Commandes
      *
      * @ORM\Column(name="Date_reservation", type="datetime")
      * @Assert\DateTime()
+     * @Dategood()
      */
     private $dateReservation;
 

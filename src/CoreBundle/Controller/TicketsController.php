@@ -105,29 +105,51 @@ class TicketsController extends Controller
 
     public function thanksAction(Request $request)
     {
-        // $session = $request->getSession();
-        // $commandes = $session->get('commandes');
-        // $message = \Swift_Message::newInstance()
-        // ->setSubject('Billets visite musée du Louvre')
-        // ->setFrom('ilombe.jonathan@gmail.com')
-        // ->setTo('jonathan.ilombe@hotmail.com')
-        // ->setBody(
-        //     $this->renderView(
-        //         "CoreBundle:Emails:reservationTickets.html.twig"
-        //     ),
-        //     "text/html"
-        // );
+        $session = $request->getSession();
+        $montant = 0;
+        $commandes = $session->get('commandes');
+        for ($i=0; $i < count($commandes->visiteurs); $i++) {
+            $montant = $montant + $commandes->visiteurs[$i]->getTarif();
+        }
 
-        // $this->get('mailer')->send($message);
+        $montant = $montant * 100;
 
-        // /// Je redirige vers la page de reception des informations et je passe en argument l'id qui me permettra de retrouver la commande et donc de l'afficher
-        // $em = $this->getDoctrine()->getManager();
-        // $em->persist($commandes);
-        // for ( $i = 0; $i < count($commandes->visiteurs); $i++)
-        // {
-        // $em->persist($commandes->visiteurs[$i]);
-        // }
-        // $em->flush();
+        // Set your secret key: remember to change this to your live secret key in production
+        // See your keys here: https://dashboard.stripe.com/account/apikeys
+        \Stripe\Stripe::setApiKey("sk_test_JBWzKNy8M4gmRc4kMUqCfew2");
+
+        // Token is created using Checkout or Elements!
+        // Get the payment token ID submitted by the form:
+        $token = $_POST['stripeToken'];
+        var_dump($token);
+        $charge = \Stripe\Charge::create([
+            'amount' => $montant,
+            'currency' => 'usd',
+            'description' => 'Example charge',
+            'source' => $token,
+        ]);
+        $commandes = $session->get('commandes');
+        $message = \Swift_Message::newInstance()
+        ->setSubject('Billets visite musée du Louvre')
+        ->setFrom('ilombe.jonathan@gmail.com')
+        ->setTo('jonathan.ilombe@hotmail.com')
+        ->setBody(
+            $this->renderView(
+                "CoreBundle:Emails:reservationTickets.html.twig"
+            ),
+            "text/html"
+        );
+
+        $this->get('mailer')->send($message);
+
+        /// Je redirige vers la page de reception des informations et je passe en argument l'id qui me permettra de retrouver la commande et donc de l'afficher
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($commandes);
+        for ( $i = 0; $i < count($commandes->visiteurs); $i++)
+        {
+        $em->persist($commandes->visiteurs[$i]);
+        }
+        $em->flush();
 
         return $this->render('CoreBundle:Tickets:thanksyou.html.twig');
     }

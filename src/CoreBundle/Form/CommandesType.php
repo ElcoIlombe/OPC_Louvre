@@ -37,8 +37,8 @@ class CommandesType extends AbstractType
         ))
         ->add('dateReservation', DateTimeType::class, array(
             'widget' => 'single_text',
-            'html5' => false,
-        ))
+            'html5' => false
+            ))
         ->add('visiteurs', CollectionType::class, array(
             'entry_type' => VisiteursType::class,
             'allow_add'  => true,

@@ -27,7 +27,7 @@
           <td class="visiteur-nom">{{ visiteur.nom }}</td>
           <td class="visiteur-prenom">{{ visiteur.prenom }}</td>
           <td class="resume-dob">{{ visiteur.dateNaissance|date("d/m/Y") }}</td>
-          <td class="resume-tarif">{{ visiteur.tarif }}</td>
+          <td class="resume-tarif">{{ visiteur.tarif }}€</td>
         </tr>
         {% set nbVisiteurs = nbVisiteurs + 1 %}
         {% set Total = Total + visiteur.tarif %}
@@ -39,10 +39,11 @@
         </th>
         <td colspan="3"></td>
         <td class="">
-          {{ Total }}
+          {{ Total }}€
         </td>
     </tfoot>
   </table>
+  {{ app.session.set('montant', Total ) }}
   <div class="row">
     <div class="col-md-12 text-right">
       <form action="{{ path("core_thank_you") }}" method="POST">
