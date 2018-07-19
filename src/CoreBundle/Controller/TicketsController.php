@@ -17,7 +17,7 @@ class TicketsController extends Controller
 {
     public function indexAction( Request $request)
     {
-        // Je crée un instance de l'instance session qui me permettra de faire passer les informations de la commande d'une page à l'autre avant validation de la commande. C'est seulement à la validation (paiement) que les informations persistés.
+        // Je crée un instance de l'instance session qui me permettra de faire passer les informations de la commande d'une page à l'autre avant validation de la commande. C'est seulement à la validation (paiement) que les informations sont persistés.
         $session = $request->getSession();
 
         // Je crée une instance de mon entité commandes pour la gestion des commandes.
@@ -36,13 +36,6 @@ class TicketsController extends Controller
             // Je check si les informations de mon formulaire correspondent à ceux attendu par mon entité et si il a bien été soumis
             if ($form->isValid() && $form->isSubmitted()) {
 
-                /// Je redirige vers la page de reception des informations et je passe en argument l'id qui me permettra de retrouver la commande et donc de l'afficher
-                // $em = $this->getDoctrine()->getManager();
-                // $em->persist($commandes);
-                // for ( $i = 0; $i < count($commandes->visiteurs); $i++) {
-                //     $em->persist($commandes->visiteurs[$i]);
-                // }
-                // $em->flush();
 
                 // On compare la date de naissance et la date actuelle pour determiner l'âge du visiteur
                 // $dob = $commandes->getVisiteurs()[$i]->getdateNaissance();
@@ -56,14 +49,15 @@ class TicketsController extends Controller
 
                 for ($i = 0; $i < count($commandes->getVisiteurs()); $i++){
                 // On compare la date de naissance et la date actuelle pour determiner l'âge du visiteur
+
                 $dob = $commandes->getVisiteurs()[$i]->getdateNaissance();
                 $now = new \DateTime();
                 $difference = $now->diff( $dob, true);
                 $age = $difference->y;
-                    // Si la case reduction est cochée, récupérer le tarifs réduit
                 if ( (4 > $age ) && ($age >= 0 ) ) {
                     $tarif = $listTarifs[4]->getTarifs();
                 }
+                 // Si la case reduction est cochée, récupérer le tarifs réduit
                 else if( $commandes->getVisiteurs()[$i]->getReduit()) {
 
                     $tarif = $listTarifs[3]->getTarifs();
@@ -83,7 +77,6 @@ class TicketsController extends Controller
                 $commandes->getVisiteurs()[$i]->setTarif($tarif);
 
                 }
-                var_dump($commandes->getVisiteurs());
                 $session->set('commandes', $commandes);
                 $session->set('visiteurs', $commandes->getVisiteurs());
                 $session->set('tarif', $commandes->getVisiteurs()[0]->getTarif());
@@ -106,6 +99,7 @@ class TicketsController extends Controller
     public function thanksAction(Request $request)
     {
         $session = $request->getSession();
+        $commandes = new Commandes();
         $montant = 0;
         $commandes = $session->get('commandes');
         for ($i=0; $i < count($commandes->visiteurs); $i++) {
@@ -132,7 +126,7 @@ class TicketsController extends Controller
         $message = \Swift_Message::newInstance()
         ->setSubject('Billets visite musée du Louvre')
         ->setFrom('ilombe.jonathan@gmail.com')
-        ->setTo('jonathan.ilombe@hotmail.com')
+        ->setTo($commandes->getEmail())
         ->setBody(
             $this->renderView(
                 "CoreBundle:Emails:reservationTickets.html.twig"
@@ -142,7 +136,6 @@ class TicketsController extends Controller
 
         $this->get('mailer')->send($message);
 
-        /// Je redirige vers la page de reception des informations et je passe en argument l'id qui me permettra de retrouver la commande et donc de l'afficher
         $em = $this->getDoctrine()->getManager();
         $em->persist($commandes);
         for ( $i = 0; $i < count($commandes->visiteurs); $i++)

@@ -21,25 +21,25 @@
           <div class="form-group  col-md-3">
             {{ form_label(form.email, 'Votre adresse email')}}
             {{ form_widget(form.email, { "attr" : { "placeholder" : "johndoe@louvre.fr", "class" : "form-control"}}) }}
-            {{ form_errors(form)}}
+            {{ form_errors(form.email)}}
           </div>
 
           <div class="form-group col-md-3">
             {{ form_label(form.type, 'Type de billets')}} <br>
             {{ form_widget(form.type, { "attr" : { "class" : "form-control" }}) }}
-            {{ form_errors(form)}}
+            {{ form_errors(form.type)}}
           </div>
 
           <div class="form-group col-md-3">
             {{ form_label(form.dateReservation, 'Date de reservation ')}}
             {{ form_widget(form.dateReservation, { "attr" : { "placeholder" : "29/06/2018", "class" : "form-control js-datepicker" }}) }}
-            {{ form_errors(form)}}
+            {{ form_errors(form.dateReservation)}}
           </div>
 
           <div class="form-group col-md-3">
             {{ form_label(form.pays, 'Pays de résidance ')}}
             {{ form_widget(form.pays, { "attr" : { "class" : "form-control", "class" : "form-control" }}) }}
-            {{ form_errors(form)}}
+            {{ form_errors(form.pays)}}
           </div>
   <div class="space-mid"></div>
           <div class="form-group col-md-12 visiteurs">
@@ -48,7 +48,7 @@
           <legend> Informations des visiteurs </legend>
           </fieldset>
             {{ form_widget(form.visiteurs)}}
-            {{ form_errors(form)}}
+            {{ form_errors(form.visiteurs)}}
             <div class="space-mid-mid"></div>
 
           </div>

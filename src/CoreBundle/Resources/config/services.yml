@@ -4,9 +4,10 @@ services:
        arguments: ["@request_stack", "@doctrine.orm.entity_manager"]
        tags:
             - { name: validator.constraint_validator, alias: core_bundle_validedate }
+  core_bundle.validator.validereservationday:
+       class: CoreBundle\Validator\ValideReservationDayValidator
+       arguments: ["@request_stack", "@doctrine.orm.entity_manager"]
+       tags:
+            - { name: validator.constraint_validator, alias: core_bundle_validereservation }
 
-  core_bundle.validator.antiflood:                              # Le nom du service
-        class: CoreBundle\Validator\AntifloodValidator     # La classe du service, ici notre validateur déjà créé
-        arguments: ["@request_stack", "@doctrine.orm.entity_manager"] # Les données qu'on injecte au service : la requête et l'EntityManager
-        tags:
-            - { name: validator.constraint_validator, alias: oc_platform_antiflood }  # C'est avec l'alias qu'on retrouvera le service
+

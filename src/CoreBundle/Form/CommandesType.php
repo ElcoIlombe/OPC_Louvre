@@ -25,7 +25,28 @@ class CommandesType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
+        if (date("H:i") >= "10:00") {
+            $builder
+        ->add('email', TextType::class, array(
+        ))
+        ->add('pays', CountryType::class)
+        ->add('type', ChoiceType::class, array(
+            'choices' => array(
+                "Demi journée" => "Demi Journée"            ),
+        ))
+        ->add('dateReservation', DateTimeType::class, array(
+            'widget' => 'single_text',
+            'html5' => false
+            ))
+        ->add('visiteurs', CollectionType::class, array(
+            'entry_type' => VisiteursType::class,
+            'allow_add'  => true,
+            'allow_delete' => true
+        ));
+        }
+
+        else {
+            $builder
         ->add('email', TextType::class, array(
         ))
         ->add('pays', CountryType::class)
@@ -44,6 +65,7 @@ class CommandesType extends AbstractType
             'allow_add'  => true,
             'allow_delete' => true
         ));
+    }
     }
     /**
      * {@inheritdoc}

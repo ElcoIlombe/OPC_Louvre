@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraint;
 class ValideDate extends Constraint
 {
 
-  public $message = "La capacité maximale du musé pour les commande en ligne (1 000) est dépassée pour cette date";
+  public $message = "La capacité maximale du musé pour les commandes en ligne (1 000) est dépassée pour cette date";
 
   public function validateBy()
   {

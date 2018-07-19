@@ -250,4 +250,5 @@ class Visiteurs
     {
         return $this->tarif;
     }
+
 }
