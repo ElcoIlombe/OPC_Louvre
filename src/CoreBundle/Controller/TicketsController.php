@@ -115,7 +115,6 @@ class TicketsController extends Controller
         // Token is created using Checkout or Elements!
         // Get the payment token ID submitted by the form:
         $token = $_POST['stripeToken'];
-        var_dump($token);
         $charge = \Stripe\Charge::create([
             'amount' => $montant,
             'currency' => 'usd',
