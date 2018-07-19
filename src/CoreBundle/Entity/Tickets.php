@@ -34,12 +34,7 @@ class Tickets
      * @ORM\Column(name="tarifs", type="integer")
      */
     private $tarifs;
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="identifiant", type="string", length=255)
-     */
-    private $identifiant;
+
 
     /**
      * Get id
@@ -99,27 +94,4 @@ class Tickets
         return $this->tarifs;
     }
 
-     /**
-     * Set type
-     *
-     * @param string $type
-     *
-     * @return Tickets
-     */
-    public function setIdentifiant($identifiant)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return string
-     */
-    public function getIdentifiant()
-    {
-        return $this->type;
-    }
 }
